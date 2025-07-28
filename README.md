@@ -7,7 +7,7 @@
 ## Install uv
 0- using pipx to install from PyPI in macOS/Linux/Windows
 ```
-pips install uv
+pipx install uv
 ```
 
 1- Linux/macOS

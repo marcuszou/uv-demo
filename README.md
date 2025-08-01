@@ -155,7 +155,7 @@ uv.lock is a cross-platform lockfile that contains exact information about your 
 See the lockfile documentation for more details.
 
 ### Managing dependencies
-You can add dependencies to your pyproject.toml with the uv add command. This will also update the lockfile and project environment:
+You can add dependencies to your `pyproject.toml` with the `uv add` command. This will also update the lockfile and project environment:
 
 ```shell
 uv add requests
@@ -171,20 +171,20 @@ uv add 'requests==2.31.0'
 uv add git+https://github.com/psf/requests
 ```
 
-If you're migrating from a requirements.txt file, you can use uv add with the -r flag to add all dependencies from the file:
+If you're migrating from a `requirements.txt` file, you can use `uv add` with the `-r` flag to add all dependencies from the file:
 
 ```shell
 # Add all dependencies from `requirements.txt`.
 uv add -r requirements.txt -c constraints.txt
 ```
 
-To remove a package, you can use uv remove:
+To remove a package, you can use `uv remove`:
 
 ```shell
 uv remove requests
 ```
 
-To upgrade a package, run uv lock with the --upgrade-package flag:
+To upgrade a package, run `uv lock` with the `--upgrade-package` flag:
 
 ```shell
 uv lock --upgrade-package requests
@@ -195,20 +195,21 @@ The `--upgrade-package` flag will attempt to update the specified package to the
 See the documentation on managing dependencies for more details.
 
 ### Managing version
-The uv version command can be used to read your package's version.
 
-To get the version of your package, run uv version:
+The `uv version` command can be used to read your package's version.
+
+To get the version of your package, run `uv version`:
 
 ```shell
 uv version
 ```
 
-To get the version without the package name, use the --short option:
+To get the version without the package name, use the `--short` option:
 
 ```shell
 uv version --short
 ```
-To get version information in a JSON format, use the --output-format json option:
+To get version information in a JSON format, use the `--output-format json` option:
 
 ```shell
 uv version --output-format json
@@ -216,9 +217,10 @@ uv version --output-format json
 See the publishing guide for details on updating your package version.
 
 ### Running commands
+
 `uv run` can be used to run arbitrary scripts or commands in your project environment.
 
-Prior to every `uv run` invocation, uv will verify that the lockfile is up-to-date with the pyproject.toml, and that the environment is up-to-date with the lockfile, keeping your project in-sync without the need for manual intervention. `uv run` guarantees that your command is run in a consistent, locked environment.
+Prior to every `uv run` invocation, uv will verify that the lockfile is up-to-date with the `pyproject.toml`, and that the environment is up-to-date with the lockfile, keeping your project in-sync without the need for manual intervention. `uv run` guarantees that your command is run in a consistent, locked environment.
 
 For example, to use flask:
 
@@ -227,11 +229,9 @@ uv add flask
 uv run -- flask run -p 3000
 ```
 
-Or, to run a script:
-```textfile
-example.py
-```
-```shell
+Or, to run a script: `example.py`
+
+```python
 # Require a project dependency
 import flask
 print("hello world")
@@ -240,7 +240,7 @@ print("hello world")
 ```shell
 uv run example.py
 ```
-Alternatively, you can use uv sync to manually update the environment then activate it before executing a command:
+Alternatively, you can use `uv sync` to manually update the environment then activate it before executing a command:
 
 ```shell
 ## macOS and Linux
@@ -251,20 +251,21 @@ python example.py
 
 ## Windows
 uv sync
-.venv\Scripts\activate
+.venv\Scripts\activate.bat
 flask run -p 3000
 python example.py
 ```
 
-~ Note
-The virtual environment must be active to run scripts and commands in the project without uv run. Virtual environment activation differs per shell and platform.
+> Note
+> The virtual environment must be active to run scripts and commands in the project without `uv run`. Virtual environment activation differs per shell and platform.
 
 See the documentation on running commands and scripts in projects for more details.
 
 ### Building distributions
+
 `uv build` can be used to build source distributions and binary distributions (wheel) for your project.
 
-By default, uv build will build the project in the current directory, and place the built artifacts in a `dist/` subdirectory:
+By default, `uv build` will build the project in the current directory, and place the built artifacts in a `dist/` subdirectory:
 
 ```shell
 uv build

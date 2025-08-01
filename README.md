@@ -105,6 +105,8 @@ uv run main.py
 ### Project structure
 A project consists of a few important parts that work together and allow uv to manage your project. In addition to the files created by uv init, uv will create a virtual environment and uv.lock file in the root of your project the first time you run a project command, i.e., `uv run`, `uv sync`, or `uv lock`.
 
+> PLEASE RUN `uv run main.py` AT LEAST ONCE TO LET UV TO CREATE THE `.venv` FOLDER PRIOR TO ANY OPERATIONS!
+
 A complete listing would look like:
 ```textfile
 .

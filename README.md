@@ -1,52 +1,100 @@
-# UV - The best Package Manager of Python
+# UV - The BEST Package Manager of Python
 
 ## Resources
+
 1. https://www.astral.sh
 2. https://docs.astral.sh/uv/guides/
+3. [uv: An In-Depth Guide to Python's Fast and Ambitious New Package Manager](https://www.saaspegasus.com/guides/uv-deep-dive/)
 
-## Install uv
+
+
+## What's uv?
+
+What is [*uv*](https://astral.sh/blog/uv), essentially?
+
+It is ultra fast Python package manager written in Rust, created by Astral, which also developed a popular and fast Python linter, [ruff](https://docs.astral.sh/ruff/). It is designed to be an alternative to other package managers in the Python world, like *pip*, *virtualenv*, and more. [Taken from its official home page:](https://docs.astral.sh/uv/)
+
+> 🚀 A single tool to replace `pip`, `pip-tools`, `pipx`, `poetry`, `pyenv`, `twine`, `virtualenv`, and more.
+
+The distinctive quality of *uv* is it *speed.* It is many times faster than other package managers:
+
+Zoom image will be displayed
+
+![](https://miro.medium.com/v2/resize:fit:700/1*saWGOqAFtCpaN59mTxkRmA.jpeg)
+
+*Installing* [*Trio*](https://trio.readthedocs.io/)*’s dependencies with a warm cache.*
+
+At the same time, *uv* is a complementary tool that can be used alongside existing tools. If you want to take advantage of the speed without changing your code significantly, all you need to do is to add `uv` before running a command. For example, let’s install `requests` through *pip* with *uv*:
+
+```shell
+uv pip install requests
+```
+
+*uv* is also a full-featured package manager, which can install, remove, and manage dependencies and virtual environments.
+
+*uv* manages packages through two files: `pyproject.toml` and `uv.lock`. *uv* keeps the list of base dependencies in *pyproject.toml* and installs their dependencies in *uv.lock,* giving you a nice separation between base and additional dependencies.
+
+## 
+
+## Installing uv into your OS
+
 0- using pipx to install from PyPI in macOS/Linux/Windows
+
 ```
 pipx install uv
 ```
 
 1- Linux/macOS
+
 ```shell
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
+
 or using `wget`:
+
 ```shell
 wget -qO- https://astral.sh/uv/install.sh | sh
 ```
+
 or using brew in macOS:
+
 ```shell
 brew install uv
 ```
 
 2- Windows
+
 ```powellshell
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
+
 or using winget:
+
 ```shell
 winget install --id=astral-sh.uv  -e
 ```
+
 or using Scoop:
+
 ```shell
 scoop install main/uv
 ```
 
 3- Check version
+
 ```shell
 uv self version
 ```
 
 4- Upgrading
+
 ```shell
 uv self update
 pip install --upgrade uv
 ```
+
 5- Uninstall uv
+
 ```shell
 ## Clean
 uv cache clean
@@ -60,29 +108,40 @@ rm $HOME\.local\bin\uvx.exe
 ```
 
 ### Installing Python
+
 To install the latest Python version:
+
 ```shell
 uv python install
 ```
+
 To install a specific Python version:
+
 ```shell
 uv python install 3.11
 ```
+
 To view available and installed Python versions:
+
 ```shell
 uv python list
 ```
 
 ## Working on Projects
+
 uv supports managing Python projects, which define their dependencies in a pyproject.toml file.
 
 ### Creating a new project
+
 You can create a new Python project using the uv init command:
+
 ```shell
 uv init hello-world
 cd hello-world
 ```
+
 Alternatively, you can initialize a project in the working directory:
+
 ```shell
 mkdir hello-world
 cd hello-world
@@ -90,6 +149,7 @@ uv init
 ```
 
 uv will create the following files:
+
 ```textfile
 ├── .gitignore
 ├── .python-version
@@ -97,17 +157,21 @@ uv will create the following files:
 ├── main.py
 └── pyproject.toml
 ```
+
 The `main.py` file contains a simple "Hello world" program. Try it out with `uv run`:
+
 ```shell
 uv run main.py
 ```
 
 ### Project structure
+
 A project consists of a few important parts that work together and allow uv to manage your project. In addition to the files created by uv init, uv will create a virtual environment and uv.lock file in the root of your project the first time you run a project command, i.e., `uv run`, `uv sync`, or `uv lock`.
 
 > PLEASE RUN `uv run main.py` AT LEAST ONCE TO LET UV TO CREATE THE `.venv` FOLDER PRIOR TO ANY OPERATIONS!
 
 A complete listing would look like:
+
 ```textfile
 .
 ├── .venv
@@ -122,10 +186,13 @@ A complete listing would look like:
 ```
 
 #### pyproject.toml
+
 The `pyproject.toml` contains metadata about your project:
+
 ```textfile
 pyproject.toml
 ```
+
 ```shell
 [project]
 name = "hello-world"
@@ -155,6 +222,7 @@ uv.lock is a cross-platform lockfile that contains exact information about your 
 See the lockfile documentation for more details.
 
 ### Managing dependencies
+
 You can add dependencies to your `pyproject.toml` with the `uv add` command. This will also update the lockfile and project environment:
 
 ```shell
@@ -209,11 +277,13 @@ To get the version without the package name, use the `--short` option:
 ```shell
 uv version --short
 ```
+
 To get version information in a JSON format, use the `--output-format json` option:
 
 ```shell
 uv version --output-format json
 ```
+
 See the publishing guide for details on updating your package version.
 
 ### Running commands
@@ -240,6 +310,7 @@ print("hello world")
 ```shell
 uv run example.py
 ```
+
 Alternatively, you can use `uv sync` to manually update the environment then activate it before executing a command:
 
 ```shell
@@ -273,3 +344,107 @@ ls dist/
 ```
 
 See the documentation on building projects for more details.
+
+
+
+## Setup Django Env with uv
+
+Run the command to install Django:
+
+```shell
+uv add Django
+```
+
+*uv* also installed Django’s two dependencies, *asgiref* and *sqlparse*. If you open and look at *pyproject.toml*, you can see only the base dependency:
+
+```toml
+# pyproject.toml
+
+[project]
+name = "uv-demo"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.2.4",
+    "rich>=14.1.0",
+]
+```
+
+ Only the top-level dependency is listed here. If you open and look at *uv.lock,* it includes all packages installed in our project*.* Note that *pyproject.toml* contains only the high-level packages, while *uv.lock* contains all dependencies.
+
+*uv* truly shines; it can separate prod and dev environment dependencies without having to use multiple *requirements.txt* files for each environment.
+
+For local development in Django, [django-debug-toolbar](https://django-debug-toolbar.readthedocs.io/) is almost a must. It gives all info about our request, templates, cache, and queries to optimize performance and debug more efficiently. However, this package must not be used in production. With *uv,* we install dev packages only in the local environment by specifying a dev group with `--group` flag.
+
+```shell
+uv add --group dev django-debug-toolbar
+```
+
+Similarly, most Django websites [gunicorn](https://gunicorn.org/) as a production web server. We use it only in production. We define another group called *prod:*
+
+```shell
+uv add --group prod gunicorn
+```
+
+In the end, if you open *pyproject.toml*, we have these groups defined and packages listed:
+
+```toml
+[project]
+name = "uv-demo"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.2.4",
+    "rich>=14.1.0",
+]
+
+[dependency-groups]
+dev = [
+    "django-debug-toolbar>=6.0.0",
+]
+prod = [
+    "gunicorn>=23.0.0",
+]
+```
+
+## Django Setup
+
+Before running `django-admin` to start a project, run this command to remove production dependencies from our local environment:
+
+```shell
+uv sync
+```
+
+`uv sync` will:
+
+1. Find or download an appropriate Python version to use.
+2. Create and set up your environment in the `.venv` folder.
+3. Build your complete dependency list and write to your `uv.lock` file.
+4. Sync your project dependencies into your virtual environment
+5. Installs only base and dev environments by default.
+
+According to the 5th point, *uv* removed *gunicorn,* which was defined under the prod.
+
+Now, let’s start a Django project with `uv run` :
+
+```shell
+uv run django-admin startproject django_project .
+```
+
+`uv run` executes commands in the current environment at a stratospheric speed. From now on, before `python` or `django-admin` , we add `uv run` , and it just works.
+
+For example, to start our local web server, we use this command:
+
+```shell
+uv run manage.py runserver
+```
+
+Now, access the Django welcome page at [http://localhost:8000/](http://localhost:8000/) Whenever you run a Django command, don’t forget to `uv run`*.*
+
+# Conclusion
+
+*uv* is an ultra fast Python package manager that replaces several Python tools. It makes it easy and quick to set up and port projects. Its focus on efficiency, compatibility, developer experience makes it an excellent package manager for your Python projects.

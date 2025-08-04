@@ -26,7 +26,7 @@ Zoom image will be displayed
 
 At the same time, *uv* is a complementary tool that can be used alongside existing tools. If you want to take advantage of the speed without changing your code significantly, all you need to do is to add `uv` before running a command. For example, let’s install `requests` through *pip* with *uv*:
 
-```shell
+```bash
 uv pip install requests
 ```
 
@@ -46,19 +46,19 @@ pipx install uv
 
 1- Linux/macOS
 
-```shell
+```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 or using `wget`:
 
-```shell
+```bash
 wget -qO- https://astral.sh/uv/install.sh | sh
 ```
 
 or using brew in macOS:
 
-```shell
+```bash
 brew install uv
 ```
 
@@ -70,32 +70,32 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 
 or using winget:
 
-```shell
+```bash
 winget install --id=astral-sh.uv  -e
 ```
 
 or using Scoop:
 
-```shell
+```bash
 scoop install main/uv
 ```
 
 3- Check version
 
-```shell
+```bash
 uv self version
 ```
 
 4- Upgrading
 
-```shell
+```bash
 uv self update
 pip install --upgrade uv
 ```
 
 5- Uninstall uv
 
-```shell
+```bash
 ## Clean
 uv cache clean
 rm -r "$(uv python dir)"
@@ -111,19 +111,19 @@ rm $HOME\.local\bin\uvx.exe
 
 To install the latest Python version:
 
-```shell
+```bash
 uv python install
 ```
 
 To install a specific Python version:
 
-```shell
+```bash
 uv python install 3.11
 ```
 
 To view available and installed Python versions:
 
-```shell
+```bash
 uv python list
 ```
 
@@ -135,14 +135,14 @@ uv supports managing Python projects, which define their dependencies in a pypro
 
 You can create a new Python project using the uv init command:
 
-```shell
+```bash
 uv init hello-world
 cd hello-world
 ```
 
 Alternatively, you can initialize a project in the working directory:
 
-```shell
+```bash
 mkdir hello-world
 cd hello-world
 uv init
@@ -160,7 +160,7 @@ uv will create the following files:
 
 The `main.py` file contains a simple "Hello world" program. Try it out with `uv run`:
 
-```shell
+```bash
 uv run main.py
 ```
 
@@ -193,7 +193,7 @@ The `pyproject.toml` contains metadata about your project:
 pyproject.toml
 ```
 
-```shell
+```bash
 [project]
 name = "hello-world"
 version = "0.1.0"
@@ -225,13 +225,13 @@ See the lockfile documentation for more details.
 
 You can add dependencies to your `pyproject.toml` with the `uv add` command. This will also update the lockfile and project environment:
 
-```shell
+```bash
 uv add requests
 ```
 
 You can also specify version constraints or alternative sources:
 
-```shell
+```bash
 # Specify a version constraint
 uv add 'requests==2.31.0'
 
@@ -241,20 +241,20 @@ uv add git+https://github.com/psf/requests
 
 If you're migrating from a `requirements.txt` file, you can use `uv add` with the `-r` flag to add all dependencies from the file:
 
-```shell
+```bash
 # Add all dependencies from `requirements.txt`.
 uv add -r requirements.txt -c constraints.txt
 ```
 
 To remove a package, you can use `uv remove`:
 
-```shell
+```bash
 uv remove requests
 ```
 
 To upgrade a package, run `uv lock` with the `--upgrade-package` flag:
 
-```shell
+```bash
 uv lock --upgrade-package requests
 ```
 
@@ -268,19 +268,19 @@ The `uv version` command can be used to read your package's version.
 
 To get the version of your package, run `uv version`:
 
-```shell
+```bash
 uv version
 ```
 
 To get the version without the package name, use the `--short` option:
 
-```shell
+```bash
 uv version --short
 ```
 
 To get version information in a JSON format, use the `--output-format json` option:
 
-```shell
+```bash
 uv version --output-format json
 ```
 
@@ -294,7 +294,7 @@ Prior to every `uv run` invocation, uv will verify that the lockfile is up-to-da
 
 For example, to use flask:
 
-```shell
+```bash
 uv add flask
 uv run -- flask run -p 3000
 ```
@@ -307,13 +307,13 @@ import flask
 print("hello world")
 ```
 
-```shell
+```bash
 uv run example.py
 ```
 
 Alternatively, you can use `uv sync` to manually update the environment then activate it before executing a command:
 
-```shell
+```bash
 ## macOS and Linux
 uv sync
 source .venv/bin/activate
@@ -338,7 +338,7 @@ See the documentation on running commands and scripts in projects for more detai
 
 By default, `uv build` will build the project in the current directory, and place the built artifacts in a `dist/` subdirectory:
 
-```shell
+```bash
 uv build
 ls dist/
 ```
@@ -351,7 +351,7 @@ See the documentation on building projects for more details.
 
 Run the command to install Django:
 
-```shell
+```bash
 uv add Django
 ```
 
@@ -378,13 +378,13 @@ dependencies = [
 
 For local development in Django, [django-debug-toolbar](https://django-debug-toolbar.readthedocs.io/) is almost a must. It gives all info about our request, templates, cache, and queries to optimize performance and debug more efficiently. However, this package must not be used in production. With *uv,* we install dev packages only in the local environment by specifying a dev group with `--group` flag.
 
-```shell
+```bash
 uv add --group dev django-debug-toolbar
 ```
 
 Similarly, most Django websites [gunicorn](https://gunicorn.org/) as a production web server. We use it only in production. We define another group called *prod:*
 
-```shell
+```bash
 uv add --group prod gunicorn
 ```
 
@@ -415,7 +415,7 @@ prod = [
 
 Before running `django-admin` to start a project, run this command to remove production dependencies from our local environment:
 
-```shell
+```bash
 uv sync
 ```
 
@@ -431,7 +431,7 @@ According to the 5th point, *uv* removed *gunicorn,* which was defined under
 
 Now, let’s start a Django project with `uv run` :
 
-```shell
+```bash
 uv run django-admin startproject django_project .
 ```
 
@@ -439,7 +439,7 @@ uv run django-admin startproject django_project .
 
 For example, to start our local web server, we use this command:
 
-```shell
+```bash
 uv run manage.py runserver
 ```
 
